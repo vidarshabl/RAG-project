@@ -28,7 +28,8 @@
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --primary-subtle: #eef2ff;
-  --primary-text: #4338ca;
+
+  --primary-text: #18125c;
 
   --success: #10b981;
   --success-subtle: #ecfdf5;
@@ -1079,7 +1080,6 @@ button, input, select, textarea {
   font-weight: 700;
   line-height: 1.25;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
