@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bibliotech | Library Management System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+              <path d="M6 6h10"></path>
+              <path d="M6 10h10"></path>
+              <path d="M6 14h7"></path>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h2>Bibliotech</h2>
+            <span>Library Suite</span>
+          </div>
+        </div>
+        <button class="icon-btn mobile-close-btn" id="mobile-sidebar-close" aria-label="Close menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-title">MAIN MENU</span>
+        <button class="nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-view="books">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span>Book Catalog</span>
+          <span class="nav-badge" id="nav-book-count">0</span>
+        </button>
+
+        <button class="nav-item" data-view="loans">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 3h5v5"></path>
+            <path d="M4 20L21 3"></path>
+            <path d="M21 16v5h-5"></path>
+            <path d="M15 15l6 6"></path>
+            <path d="M4 4l5 5"></path>
+          </svg>
+          <span>Circulation</span>
+          <span class="nav-badge alert" id="nav-overdue-count" style="display:none;">0</span>
+        </button>
+
+        <button class="nav-item" data-view="members">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Members</span>
+        </button>
+
+        <span class="nav-section-title">PREFERENCES</span>
+        <button class="nav-item" data-view="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Data & Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-card">
+          <div class="storage-info">
+            <span class="storage-label">Local Storage</span>
+            <span class="storage-val" id="storage-status">Active</span>
+          </div>
+          <div class="storage-bar">
+            <div class="storage-fill" id="storage-fill-bar" style="width: 25%;"></div>
+          </div>
+          <p class="storage-hint">Saved securely in browser</p>
+        </div>
+
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-icon light-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon dark-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span id="theme-text">Dark Mode</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-menu-btn" id="mobile-menu-trigger" aria-label="Open navigation">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="page-title-group">
+            <h1 id="page-title">Dashboard</h1>
+            <p id="page-subtitle">Real-time statistics & library operations</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="quick-date" id="current-date-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span id="live-date">Today</span>
+          </div>
+
+          <button class="btn btn-outline" id="quick-issue-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 3h5v5"></path>
+              <path d="M4 20L21 3"></path>
+            </svg>
+            <span>Issue Book</span>
+          </button>
+
+          <button class="btn btn-primary" id="quick-add-book-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Add Book</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- View Container -->
+      <div class="content-body">
+
+        <!-- ================= DASHBOARD VIEW ================= -->
+        <section class="view-section active" id="view-dashboard">
+          <!-- Metrics Overview Cards -->
+          <div class="metrics-grid">
+            <div class="metric-card card-primary">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Total Unique Titles</span>
+                <h3 class="metric-value" id="dash-total-titles">0</h3>
+                <span class="metric-sub" id="dash-total-copies">0 total copies</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-success">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Available on Shelves</span>
+                <h3 class="metric-value" id="dash-avail-books">0</h3>
+                <span class="metric-sub text-success">Ready for loan</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-warning">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Active Loans</span>
+                <h3 class="metric-value" id="dash-active-loans">0</h3>
+                <span class="metric-sub text-warning" id="dash-due-soon">0 due soon</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-danger">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Overdue Returns</span>
+                <h3 class="metric-value text-danger" id="dash-overdue-loans">0</h3>
+                <span class="metric-sub" id="dash-overdue-fines">Fines: $0.00</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-info">
+              <div class="metric-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Registered Members</span>
+                <h3 class="metric-value" id="dash-total-members">0</h3>
+                <span class="metric-sub text-info" id="dash-active-members">0 with active loans</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts & Visual Analytics -->
+          <div class="dashboard-row">
+            <div class="card chart-card flex-2">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Book Distribution by Genre</h3>
+                  <p class="card-subtitle">Inventory breakdown across primary categories</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="bar-chart-container" id="category-chart">
+                  <!-- Generated dynamically via JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="card chart-card flex-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Circulation Ratio</h3>
+                  <p class="card-subtitle">Books status breakdown</p>
+                </div>
+              </div>
+              <div class="card-body donut-chart-body">
+                <div class="donut-chart-wrapper">
+                  <svg viewBox="0 0 100 100" class="donut-svg" id="circulation-donut">
+                    <circle cx="50" cy="50" r="40" class="donut-base"></circle>
+                    <circle cx="50" cy="50" r="40" class="donut-segment segment-available" id="donut-seg-available"></circle>
+                    <circle cx="50" cy="50" r="40" class="donut-segment segment-loaned" id="donut-seg-loaned"></circle>
+                  </svg>
+                  <div class="donut-center">
+                    <span class="donut-rate" id="dash-loan-rate">0%</span>
+                    <span class="donut-label">Checked Out</span>
+                  </div>
+                </div>
+                <div class="donut-legend">
+                  <div class="legend-item"><span class="legend-dot dot-available"></span> Available (<span id="donut-avail-count">0</span>)</div>
+                  <div class="legend-item"><span class="legend-dot dot-loaned"></span> Borrowed (<span id="donut-loaned-count">0</span>)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Operations & Alerts Grid -->
+          <div class="dashboard-row">
+            <!-- Recent Transactions Table -->
+            <div class="card flex-2">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Recent Borrow & Return Activity</h3>
+                  <p class="card-subtitle">Latest circulation activities logged</p>
+                </div>
+                <button class="btn btn-sm btn-ghost" onclick="app.switchView('loans')">View All Loans &rarr;</button>
+              </div>
+              <div class="card-body table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Book</th>
+                      <th>Member</th>
+                      <th>Date</th>
+                      <th>Due Date</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-recent-loans-table">
+                    <!-- Populated via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Overdue Attention Needed -->
+            <div class="card flex-1">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Pending Attention</h3>
+                  <p class="card-subtitle">Items overdue or due within 48h</p>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <ul class="attention-list" id="dash-attention-list">
+                  <!-- Populated via JS -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= BOOK CATALOG VIEW ================= -->
+        <section class="view-section" id="view-books">
+          <!-- Filters & Action Bar -->
+          <div class="filter-bar card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="book-search-input" placeholder="Search by title, author, ISBN..." />
+              <button class="clear-search-btn" id="book-search-clear" style="display:none;" aria-label="Clear search">&times;</button>
+            </div>
+
+            <div class="filter-controls">
+              <select id="book-category-filter" class="form-select">
+                <option value="ALL">All Genres</option>
+                <!-- Populated dynamically -->
+              </select>
+
+              <select id="book-status-filter" class="form-select">
+                <option value="ALL">All Status</option>
+                <option value="AVAILABLE">Available</option>
+                <option value="OUT_OF_STOCK">All Borrowed</option>
+              </select>
+
+              <select id="book-sort-by" class="form-select">
+                <option value="title_asc">Title (A-Z)</option>
+                <option value="title_desc">Title (Z-A)</option>
+                <option value="author_asc">Author (A-Z)</option>
+                <option value="rating_desc">Highest Rated</option>
+                <option value="year_desc">Newest Year</option>
+              </select>
+
+              <div class="view-toggle-group">
+                <button class="toggle-btn active" id="view-mode-grid" title="Grid View">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                </button>
+                <button class="toggle-btn" id="view-mode-table" title="Table View">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <button class="btn btn-primary" id="open-add-book-modal">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Add Book</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Catalog Results Status -->
+          <div class="results-header">
+            <span id="book-results-count">Showing all books</span>
+          </div>
+
+          <!-- Book Grid View -->
+          <div class="books-grid" id="books-grid-container">
+            <!-- Injected via JS -->
+          </div>
+
+          <!-- Book Table View (hidden by default) -->
+          <div class="card table-responsive" id="books-table-wrapper" style="display: none;">
+            <table class="data-table" id="books-data-table">
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Category</th>
+                  <th>ISBN</th>
+                  <th>Published</th>
+                  <th>Rating</th>
+                  <th>Copies (Avail/Total)</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="books-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="books-empty-state" style="display:none;">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                <line x1="10" y1="9" x2="14" y2="13"></line>
+                <line x1="14" y1="9" x2="10" y2="13"></line>
+              </svg>
+            </div>
+            <h3>No Books Found</h3>
+            <p>We couldn't find any books matching your current search or filter criteria.</p>
+            <button class="btn btn-outline" id="reset-book-filters-btn">Reset Filters</button>
+          </div>
+        </section>
+
+        <!-- ================= CIRCULATION / LOANS VIEW ================= -->
+        <section class="view-section" id="view-loans">
+          <div class="loans-action-bar card">
+            <div class="tab-pill-group">
+              <button class="tab-pill active" data-loan-filter="ACTIVE">
+                Active Loans (<span id="loans-tab-active-count">0</span>)
+              </button>
+              <button class="tab-pill" data-loan-filter="OVERDUE">
+                Overdue (<span id="loans-tab-overdue-count">0</span>)
+              </button>
+              <button class="tab-pill" data-loan-filter="RETURNED">
+                History / Returned (<span id="loans-tab-returned-count">0</span>)
+              </button>
+              <button class="tab-pill" data-loan-filter="ALL">
+                All Records (<span id="loans-tab-all-count">0</span>)
+              </button>
+            </div>
+
+            <div class="loan-filter-actions">
+              <div class="search-input-wrap">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="loan-search-input" placeholder="Search by book or member name..." />
+              </div>
+
+              <button class="btn btn-primary" id="open-issue-modal">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 3h5v5"></path>
+                  <path d="M4 20L21 3"></path>
+                </svg>
+                <span>Issue Book</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Loan ID</th>
+                  <th>Book Title</th>
+                  <th>Member Name</th>
+                  <th>Issue Date</th>
+                  <th>Due Date</th>
+                  <th>Return Date</th>
+                  <th>Status</th>
+                  <th>Late Fine</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="loans-table-body">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+
+            <div class="empty-state" id="loans-empty-state" style="display:none;">
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16 3h5v5"></path>
+                  <path d="M4 20L21 3"></path>
+                </svg>
+              </div>
+              <h3>No Circulation Records</h3>
+              <p>No loan records match the selected tab or search query.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= MEMBERS MANAGEMENT VIEW ================= -->
+        <section class="view-section" id="view-members">
+          <div class="filter-bar card">
+            <div class="search-input-wrap">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="member-search-input" placeholder="Search members by name, email, or role..." />
+            </div>
+
+            <div class="filter-controls">
+              <select id="member-role-filter" class="form-select">
+                <option value="ALL">All Roles</option>
+                <option value="Student">Student</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Community">Community Member</option>
+                <option value="Researcher">Researcher</option>
+              </select>
+
+              <button class="btn btn-primary" id="open-add-member-modal">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Add Member</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="members-grid" id="members-grid-container">
+            <!-- Injected via JS -->
+          </div>
+
+          <div class="empty-state" id="members-empty-state" style="display:none;">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <h3>No Members Found</h3>
+            <p>Try modifying your search query or role filter.</p>
+          </div>
+        </section>
+
+        <!-- ================= DATA & SETTINGS VIEW ================= -->
+        <section class="view-section" id="view-settings">
+          <div class="settings-grid">
+            <!-- Backup & Export -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Data Backup & Export</h3>
+                  <p class="card-subtitle">Download all library records or import a saved backup</p>
+                </div>
+              </div>
+              <div class="card-body settings-card-body">
+                <p class="settings-desc">
+                  All books, patron accounts, and circulation transactions are stored in your browser's persistent
+                  <code>localStorage</code>. Export your data to JSON for safe-keeping.
+                </p>
+                <div class="btn-group">
+                  <button class="btn btn-primary" id="btn-export-data">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Export JSON Backup</span>
+                  </button>
+
+                  <label class="btn btn-outline file-upload-label">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Import JSON Backup</span>
+                    <input type="file" id="import-file-input" accept=".json" style="display:none;" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Demo Data Reset -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Library Defaults & Reset</h3>
+                  <p class="card-subtitle">Seed realistic sample data or wipe all database tables</p>
+                </div>
+              </div>
+              <div class="card-body settings-card-body">
+                <p class="settings-desc">
+                  Want to explore features with fresh sample books across genres, pre-configured members, and active loans?
+                </p>
+                <div class="btn-group">
+                  <button class="btn btn-outline" id="btn-reload-demo">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="1 4 1 10 7 10"></polyline>
+                      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    <span>Restore Demo Library Data</span>
+                  </button>
+
+                  <button class="btn btn-danger" id="btn-clear-all">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <span>Wipe All Records</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">About Bibliotech</h3>
+                  <p class="card-subtitle">Single-page offline-capable library management architecture</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="system-stats-list">
+                  <li><strong>Architecture:</strong> Zero external frameworks (Vanilla JS, HTML5, CSS3)</li>
+                  <li><strong>Storage engine:</strong> HTML5 Web Storage API</li>
+                  <li><strong>Circulation Rules:</strong> 14-day default loan period, $0.50/day overdue penalty fee</li>
+                  <li><strong>Status:</strong> Client-side Reactive SPA</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Add / Edit Book Modal -->
+  <div class="modal-backdrop" id="modal-book-form">
+    <div class="modal-dialog modal-md">
+      <div class="modal-header">
+        <h3 id="book-modal-title">Add New Book</h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <form id="book-form">
+        <input type="hidden" id="book-id-input" value="" />
+        <div class="modal-body form-grid">
+          <div class="form-group col-span-2">
+            <label for="book-title-input">Book Title *</label>
+            <input type="text" id="book-title-input" class="form-input" required placeholder="e.g. Clean Code" />
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="book-author-input">Author(s) *</label>
+            <input type="text" id="book-author-input" class="form-input" required placeholder="e.g. Robert C. Martin" />
+          </div>
+
+          <div class="form-group">
+            <label for="book-isbn-input">ISBN-13 *</label>
+            <input type="text" id="book-isbn-input" class="form-input" required placeholder="978-0132350884" />
+          </div>
+
+          <div class="form-group">
+            <label for="book-genre-input">Category / Genre *</label>
+            <select id="book-genre-input" class="form-select" required>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Science">Science & Tech</option>
+              <option value="History">History & Bio</option>
+              <option value="Philosophy">Philosophy</option>
+              <option value="Business">Business & Finance</option>
+              <option value="Design">Design & Art</option>
+              <option value="Literature">Classic Literature</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="book-year-input">Publication Year</label>
+            <input type="number" id="book-year-input" class="form-input" min="1500" max="2099" value="2023" />
+          </div>
+
+          <div class="form-group">
+            <label for="book-copies-input">Total Quantity / Copies *</label>
+            <input type="number" id="book-copies-input" class="form-input" min="1" max="100" value="3" required />
+          </div>
+
+          <div class="form-group">
+            <label for="book-rating-input">Rating (1 to 5 Stars)</label>
+            <select id="book-rating-input" class="form-select">
+              <option value="5">★★★★★ (5.0)</option>
+              <option value="4.5">★★★★☆ (4.5)</option>
+              <option value="4">★★★★☆ (4.0)</option>
+              <option value="3.5">★★★☆☆ (3.5)</option>
+              <option value="3">★★★☆☆ (3.0)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="book-cover-accent">Cover Color Theme</label>
+            <select id="book-cover-accent" class="form-select">
+              <option value="gradient-indigo">Royal Indigo</option>
+              <option value="gradient-emerald">Emerald Green</option>
+              <option value="gradient-rose">Crimson Rose</option>
+              <option value="gradient-amber">Golden Amber</option>
+              <option value="gradient-violet">Midnight Violet</option>
+              <option value="gradient-cyan">Ocean Cyan</option>
+            </select>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="book-desc-input">Description / Summary</label>
+            <textarea id="book-desc-input" class="form-textarea" rows="3" placeholder="Brief summary of the book..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-book-btn">Save Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Book Detail Modal -->
+  <div class="modal-backdrop" id="modal-book-detail">
+    <div class="modal-dialog modal-md">
+      <div class="modal-header">
+        <h3 id="detail-modal-title">Book Details</h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body" id="detail-modal-body">
+        <!-- Rendered via JS -->
+      </div>
+      <div class="modal-footer" id="detail-modal-footer">
+        <!-- Action buttons rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Issue / Loan Book Modal -->
+  <div class="modal-backdrop" id="modal-issue-book">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <h3>Issue Book to Member</h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <form id="issue-form">
+        <div class="modal-body form-grid">
+          <div class="form-group col-span-2">
+            <label for="issue-book-select">Select Available Book *</label>
+            <select id="issue-book-select" class="form-select" required>
+              <!-- Populated dynamically with available books -->
+            </select>
+            <span class="field-hint" id="issue-book-hint"></span>
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="issue-member-select">Select Member *</label>
+            <select id="issue-member-select" class="form-select" required>
+              <!-- Populated dynamically with members -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="issue-date-input">Issue Date</label>
+            <input type="date" id="issue-date-input" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="due-date-input">Due Date (Default: 14 days)</label>
+            <input type="date" id="due-date-input" class="form-input" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm Issue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Add / Edit Member Modal -->
+  <div class="modal-backdrop" id="modal-member-form">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header">
+        <h3 id="member-modal-title">Register Member</h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <form id="member-form">
+        <input type="hidden" id="member-id-input" value="" />
+        <div class="modal-body form-grid">
+          <div class="form-group col-span-2">
+            <label for="member-name-input">Full Name *</label>
+            <input type="text" id="member-name-input" class="form-input" required placeholder="e.g. Alice Chen" />
+          </div>
+
+          <div class="form-group col-span-2">
+            <label for="member-email-input">Email Address *</label>
+            <input type="email" id="member-email-input" class="form-input" required placeholder="alice@example.edu" />
+          </div>
+
+          <div class="form-group">
+            <label for="member-phone-input">Phone Number</label>
+            <input type="tel" id="member-phone-input" class="form-input" placeholder="+1 (555) 019-2834" />
+          </div>
+
+          <div class="form-group">
+            <label for="member-role-input">Membership Type *</label>
+            <select id="member-role-input" class="form-select" required>
+              <option value="Student">Student</option>
+              <option value="Faculty">Faculty</option>
+              <option value="Researcher">Researcher</option>
+              <option value="Community">Community Member</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-member-btn">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Confirmation Dialog Modal -->
+  <div class="modal-backdrop" id="modal-confirm">
+    <div class="modal-dialog modal-xs">
+      <div class="modal-header">
+        <h3 id="confirm-modal-title">Confirm Action</h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
